@@ -1,0 +1,114 @@
+---
+title: "Annotate Big Trees FigS10"
+author: "Chunyu Zhao"
+date: \today
+output: pdf_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, echo=FALSE}
+knitr::opts_chunk$set(
+  tidy=FALSE,
+  cache=FALSE,
+  echo=FALSE,
+  message = FALSE,
+  warning = FALSE,
+  dpi=100,
+  fig.width = 8,
+  fig.height = 8,
+  fig.align = "center",
+  cache.lazy = FALSE,
+  dev=c("png", "pdf"),
+  warning=FALSE)
+```
+
+```{r}
+library(tidyverse)
+library(pander)
+library(ggplot2)
+library(ggtree)
+library(ape)
+library(scales)
+library(colorRamps)
+library(RColorBrewer)
+library(magrittr)
+library(ggbeeswarm)
+```
+
+# read in necessary metadadta
+
+- read in 20171129_E.coli_strains_summary.tsv
+
+- read in CheckM results 20180524_selected_checkm.txt
+
+- read in Avnio external-genomes-all-final.txt
+
+```{r}
+ecoli.2017 <- read.table("metadata/20171129_E.coli_strains_summary.tsv", sep="\t", header = TRUE)
+
+checkm <- read_delim("metadata/20180524_selected_checkm.txt", delim="\t")
+
+shigella <-  read.table("metadata/external-genomes-all-final.txt", sep="\t", header = TRUE) %>%
+  separate(contigs_db_path, into="accession", extra="drop", sep="\\.", remove=FALSE) %>%
+  dplyr::rename(taxon=name) %>%
+  filter(grepl("Shigella", taxon)) %>%
+  select(accession, taxon) %>%
+  rename(Name = taxon) %>%
+  mutate(Name = sub("_", " ", Name)) %>%
+  mutate(Phylogroup = "Shigella")
+
+ecoli.2018 <- checkm %>% select(assembly_accession:Strain) %>%
+  dplyr::rename(Name = `#Organism/Name`) %>% 
+  mutate(Name = ifelse(Name %in% "Escherichia coli", paste(Name, Strain, sep=":"), as.character(Name))) %>%
+  mutate(Name = sub("Escherichia coli", "E. coli", Name)) %>%
+  select(assembly_accession, Name, Phylogroup) %>%
+  rename(accession = assembly_accession) %>%
+  mutate(accession = sub("\\..*","", accession))
+
+
+## merge external_genomes with strains, and match the leaves name
+draft <- read.table("metadata/external-genomes-20180602.txt", sep="\t", header = TRUE) %>%
+  separate(contigs_db_path, into="accession", extra="drop", sep="\\.", remove=FALSE) %>%
+  dplyr::rename(Name=name) %>%
+  filter(grepl("^s",Name)) %>%
+  select(accession, Name) %>%
+  mutate(Phylogroup = "PCMP")
+
+dd <- rbind(ecoli.2018, shigella, draft) %>%
+  rename(node_lable = Name) %>%
+  mutate(Phylogroup = as.factor(Phylogroup)) %>%
+  rename(taxon = accession)
+row.names(dd) <- NULL
+
+tree <- read.tree("20180604_Trees/tree.txt")
+```
+
+# tree time
+
+```{r}
+p <- ggtree(tree)
+
+set1colors3 <- brewer.pal(n = 9, name = "Set3")
+mycolor <- c(set1colors3[1], set1colors3[3:8], set1colors3[9])
+
+p <- p %<+% dd + geom_tiplab(aes(color=Phylogroup, label=node_lable, fontsize=5)) +
+ xlim(0, 0.02) 
+  
+p + theme(legend.position="right") + ggsave("20180604_Trees/tree.20180604.pdf", width=16, height=35, useDingbats=FALSE)
+```
+
+# rewrite the tree for Figtree
+
+```{r}
+## remove duplicated names
+dd %<>% mutate(i = row_number()) %>%
+  mutate(node_lable = paste(node_lable, i, sep="_"))
+
+new.tip <- dd$node_lable
+names(new.tip) <- dd$taxon
+
+tree$tip.label <- new.tip[tree$tip.label] %>% as.character()
+
+write.tree(tree, "20180604_Trees/tree.new.txt")
+```
