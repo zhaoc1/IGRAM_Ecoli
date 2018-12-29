@@ -1,0 +1,191 @@
+---
+title: "Annotate Small E coli ML Tree for the Paper"
+author: "Chunyu Zhao"
+date: \today
+output: pdf_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, echo=FALSE}
+knitr::opts_chunk$set(
+  tidy=FALSE,
+  cache=FALSE,
+  echo=FALSE,
+  message = FALSE,
+  warning = FALSE,
+  dpi=100,
+  fig.width = 8,
+  fig.height = 8,
+  fig.align = "center",
+  cache.lazy = FALSE,
+  dev=c("png", "pdf"),
+  warning=FALSE)
+```
+
+```{r}
+library(tidyverse)
+library(pander)
+library(ggplot2)
+library(ggtree)
+library(ape)
+library(scales)
+library(colorRamps)
+library(RColorBrewer)
+library(magrittr)
+library(ggbeeswarm)
+```
+
+# Fig 2 E coli tree
+
+## metadata
+
+- read in 20171129_E.coli_strains_summary.tsv
+- read in external-genomes-all-final.txt
+- write 20180604_tree_dd.txt
+
+```{r}
+strains <- read.table("20171129_E.coli_strains_summary.tsv", sep="\t", header = TRUE)
+
+strains %<>% select(organism_name, pathovar, assembly_accession, taxid, species_taxid, phylo_group)
+external_genomes <- read.table("external-genomes-all-final.txt", sep="\t", header = TRUE)
+
+external_genomes %<>%
+  separate(contigs_db_path, into="accession", extra="drop", sep="\\.", remove=FALSE) %>%
+  dplyr::rename(taxon=name)
+
+strains %<>%
+  filter(! is.na(assembly_accession)) %>%
+  separate(assembly_accession, into="accession",extra="drop", sep="\\.", remove=FALSE )
+
+dd <- left_join(external_genomes, strains)
+
+dd %<>%
+  mutate(node_lable = gsub("Escherichia_coli_","",taxon)) %>% 
+  unite(temp, pathovar, node_lable, sep=":", remove=F) %>%
+  mutate(pathovar = ifelse(pathovar %in% "Laboratory adapted", NA, as.character(pathovar))) %>%
+  mutate(pathovar = ifelse(pathovar %in% "Commensal", NA, as.character(pathovar))) %>%
+  mutate(node_lable = ifelse(is.na(pathovar), as.character(node_lable), as.character(temp))) %>%
+  mutate(pathovar = ifelse(is.na(pathovar), "NA", as.character(pathovar))) %>%
+  mutate(pathovar = factor(pathovar, levels=c("EAEC","EPEC","ETEC","EHEC","ExPEC/UPEC","ExPEC/avian","NA"))) %>%
+  mutate(phylo_group = ifelse(is.na(phylo_group), "NA", as.character(phylo_group))) %>%
+  mutate(phylo_group = ifelse(grepl("Shigella", node_lable), "Shigella", as.character(phylo_group))) %>%
+  mutate(phylo_group = ifelse(grepl("^s", node_lable), "PCMP", as.character(phylo_group))) %>%
+  mutate(phylo_group = sub("NA", "Unknown", phylo_group)) %>%
+  mutate(phylo_group = factor(phylo_group, levels=c("A", "B1", "B2", "C-I", "D1", "D2", "E", "PCMP", "Shigella", "Unknown")))
+row.names(dd) <- NULL
+
+dd %>% write.table("20180604_tree_dd.txt", sep="\t", quote=FALSE, row.names = F)
+
+tree <- read.tree("20180604_ML_Trees/tree.ml.txt")
+```
+
+## reorder tip labels
+
+- write to 20180714_ecoli_tree_tip_order.txt
+
+```{r 20180714 correct tip labels}
+tree2 <- ladderize(tree, right = FALSE)
+#tree$tip.label
+#tree2$tip.label
+plot(tree2)
+nodelabels()
+tiplabels()
+
+is_tip <- tree2$edge[,2] <= length(tree2$tip.label)
+ordered_tips <- tree2$edge[is_tip, 2]
+
+write.table(tree2$tip.label[ordered_tips], file="20180714_ecoli_tree_tip_order.txt", sep="\t", quote=F, row.names = F, col.names = F)
+## then copy this file to the pangenome folder
+```
+
+```{r}
+library(ggsci)
+
+mycolor <- pal_npg(palette = c("nrc"), alpha = 1)(10)
+
+dd %<>% mutate(isPCMP = ifelse(phylo_group %in% "PCMP", TRUE, FALSE))
+
+p <- ggtree(tree)
+
+p %<+% dd +
+  geom_tippoint(aes( shape = isPCMP, color=phylo_group,  x = x + 0.00025), size=2) + 
+  scale_shape_manual(values = c( 15, 16), guide = FALSE) +
+  theme(legend.position="right") + 
+  scale_color_npg() +
+  ggsave("20180604_SmallTree_v1.pdf", width=5, height=4.5, useDingbats=FALSE)
+```
+
+## Reference:
+
+[1] The evolution of the Escherichia coli phylogeny, Fig 4.
+
+[2] The Pangenome Structure of Escherichia coli: comparative genomic analysis of E.coli Commensal and Pathogenic Isolates, Table 2 (Rasko D)
+
+# Table Time
+
+## E. coli
+
+- read in 20171120_Ecoli.txt and Ecoli_stat_genes_in_contigs.txt
+- write 20171204_table_Ecoli.txt
+
+```{r}
+tab.cov <- read.table("20171120_Ecoli.txt", sep="\t", header=TRUE) %>%
+  select(SampleID, false, estNumReads, estCoverage) %>%
+  separate(SampleID, into="subjectid", extra="drop", remove=TRUE, sep="\\.")
+
+tab.genes <- read.table("Ecoli_stat_genes_in_contigs.txt", sep="\t") %>%
+  dplyr::rename(accession = V1, full=V2, partial=V3)
+
+ 
+tab <- right_join(tab.cov,tab.genes, by=c("subjectid"="accession")) %>% 
+  arrange(desc(estCoverage)) %>%
+  dplyr::rename(NonHostReads = false)
+
+tab <- 
+  left_join(tab, strains[,c("accession","organism_name","pathovar","phylo_group")], by=c("subjectid" = "accession")) 
+
+write.table(tab, "20171204_table_Ecoli.txt", sep="\t", quote = FALSE, row.names = FALSE)
+```
+
+## E. faecalis
+
+- read in 20171117_Efaecalis.txt and Efaecalis_stat_genes_in_contigs.txt
+- write 20171204_table_Efaecalis.txt
+
+```{r}
+tab.cov <- read.table("20171117_Efaecalis.txt", sep="\t", header=TRUE) %>%
+  select(SampleID, false, estNumReads, estCoverage) %>%
+  separate(SampleID, into="subjectid", extra="drop", remove=TRUE, sep="\\.")
+
+tab.genes <- read.table("Efaecalis_stat_genes_in_contigs.txt", sep="\t") %>%
+  dplyr::rename(accession = V1, full=V2, partial=V3)
+
+ 
+tab <- right_join(tab.cov,tab.genes, by=c("subjectid"="accession")) %>% 
+  arrange(desc(estCoverage)) %>%
+  dplyr::rename(NonHostReads = false)
+
+write.table(tab, "20171204_table_Efaecalis.txt", sep="\t", quote = FALSE, row.names = FALSE)
+```
+
+## B. vulgatus
+
+- read in 20171122_Bvulgatus.txt and Bvulgatus_stat_genes_in_contigs.txt
+- write 20171204_table_Bvulgatus.txt
+
+```{r}
+tab.cov <- read.table("20171122_Bvulgatus.txt", sep="\t", header=TRUE) %>%
+  select(SampleID, false, estNumReads, estCoverage) %>%
+  separate(SampleID, into="subjectid", extra="drop", remove=TRUE, sep="\\.")
+
+tab.genes <- read.table("Bvulgatus_stat_genes_in_contigs.txt", sep="\t") %>%
+  dplyr::rename(accession = V1, full=V2, partial=V3)
+
+ 
+tab <- right_join(tab.cov,tab.genes, by=c("subjectid"="accession")) %>% 
+  arrange(desc(estCoverage)) %>%
+  dplyr::rename(NonHostReads = false)
+
+write.table(tab, "20171204_table_Bvulgatus.txt", sep="\t", quote = FALSE, row.names = FALSE)
+```

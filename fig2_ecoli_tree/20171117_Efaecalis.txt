@@ -1,0 +1,20 @@
+SampleID	NonHostReads	both_kept	false	Dominance	Taxon	Proportion	estNumReads	estCoverage
+s319.STL.V01_1.4d	12306326	14626591	11902425	Firmicutes Enterococcus faecalis	Firmicutes Enterococcus faecalis	99.80524	1187924383.707	368.920616058075
+s298.STL.V01_1.4d	10959802	10261469	10158554	Firmicutes Enterococcus faecalis	Firmicutes Enterococcus faecalis	98.89718	1004652343.47772	312.003833378174
+s256.STL.V01_1.4d	4619674	4425516	4411161	Firmicutes Enterococcus faecalis	Firmicutes Enterococcus faecalis	96.02453	423579661.77933	131.546478813457
+s125.STL.V01_1.4d	3817829	4286582	3711083	Firmicutes Enterococcus faecalis	Firmicutes Enterococcus faecalis	84.98255	315377296.60165	97.943259814177
+s184.STL.V01_1.4d	12180678	12428712	11820686	Proteobacteria Escherichia coli	Firmicutes Enterococcus faecalis	17.22653	203629401.99958	63.2389447203665
+s187.STL.V01_1.4d	2635689	5177327	2554396	Firmicutes Enterococcus faecalis	Firmicutes Enterococcus faecalis	74.76469	190978625.07724	59.3101320115652
+s111.STL.V01_1.4d	9155165	12420165	8810701	Proteobacteria Citrobacter unclassified	Firmicutes Enterococcus faecalis	10.7738	94924730.4338	29.4797299483851
+s222.STL.V01_1.4d	2094953	3536137	2024280	Firmicutes Streptococcus pasteurianus	Firmicutes Enterococcus faecalis	30.01053	60749715.6684	18.8663713255901
+s160.STL.V01_1.4d	2420712	2377224	2327620	Proteobacteria Pantoea dispersa	Firmicutes Enterococcus faecalis	16.33508	38021858.9096	11.8080307172671
+s188.STL.V01_1.4d	2662880	3078836	2576845	Proteobacteria Escherichia coli	Firmicutes Enterococcus faecalis	9.1004	23450320.238	7.28270814844721
+s202.STL.V01_1.4d	7174086	12592115	6996635	Proteobacteria Escherichia coli	Firmicutes Enterococcus faecalis	2.80714	19640533.9739	6.0995447123913
+s237.STL.V01_1.4d	3618237	3446899	3444558	Actinobacteria Bifidobacterium breve	Firmicutes Enterococcus faecalis	4.45004	15328420.88232	4.760379156
+s285.STL.V01_1.4d	1695333	1632130	1629811	Proteobacteria Escherichia coli	Firmicutes Enterococcus faecalis	3.65147	5951205.97217	1.84820061247516
+s302.STL.V01_1.4d	39235	5069624	36611	Firmicutes Enterococcus faecalis	Firmicutes Enterococcus faecalis	63.11777	2310804.67747	0.71764120418323
+s161.STL.V01_1.4d	9692800	9424522	9422169	Proteobacteria Escherichia coli	Firmicutes Enterococcus faecalis	0.22632	2132425.28808	0.662243878285714
+s211.STL.V01_1.4d	5613571	9812203	5246823	Proteobacteria Escherichia coli	Firmicutes Enterococcus faecalis	0.25437	1334634.36651	0.414482722518633
+s230.STL.V01_1.4d	58792	12602716	56195	Firmicutes Staphylococcus epidermidis	Firmicutes Enterococcus faecalis	14.34759	806262.82005	0.250392180139752
+s325.STL.V01_1.4d	5656621	5478189	5427246	Proteobacteria Citrobacter koseri	Firmicutes Enterococcus faecalis	0.09614	521775.43044	0.162042059142857
+s248.STL.V01_1.4d	216441	10428551	208584	Proteobacteria Enterobacter cloacae	Firmicutes Enterococcus faecalis	2.22092	463248.37728	0.143865955677019

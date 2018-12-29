@@ -1,0 +1,22 @@
+SampleID	NonHostReads	both_kept	false	Dominance	Taxon	Proportion	estNumReads	estCoverage
+s325.STL.V01_1.4d	5656621	5478189	5427246	Proteobacteria Citrobacter koseri	Bacteroidetes Bacteroides vulgatus	24.03159	130425350.70114	27.7500746172638
+s193.STL.V01_1.4d	6997152	6159730	6153318	Bacteroidetes Bacteroides dorei	Bacteroidetes Bacteroides vulgatus	12.09025	74395152.9495	15.8287559467021
+s237.STL.V01_1.4d	3618237	3446899	3444558	Actinobacteria Bifidobacterium breve	Bacteroidetes Bacteroides vulgatus	15.65925	53939194.8615	11.476424438617
+s176.STL.V01_1.4d	865733	838762	837850	Proteobacteria Escherichia coli	Bacteroidetes Bacteroides vulgatus	32.74486	27435280.951	5.8372938193617
+s184.STL.V01_1.4d	12180678	12428712	11820686	Proteobacteria Escherichia coli	Bacteroidetes Bacteroides vulgatus	1.63712	19351881.46432	4.11742158815319
+s128.STL.V01_1.4d	9667400	9335648	9312978	Proteobacteria Escherichia coli	Bacteroidetes Bacteroides vulgatus	0.87387	8138332.08486	1.73156001805532
+s192.STL.V01_1.4d	204137	1165973	190273	Proteobacteria Escherichia coli	Bacteroidetes Bacteroides vulgatus	31.74801	6040789.10673	1.28527427802766
+s250.STL.V01_1.4d	85475	3803363	76848	Bacteroidetes Bacteroides vulgatus	Bacteroidetes Bacteroides vulgatus	49.78343	3825757.02864	0.813990857157447
+s157.STL.V01_1.4d	9464730	8750144	8734918	Proteobacteria Escherichia coli	Bacteroidetes Bacteroides vulgatus	0.2973	2596891.1214	0.552530025829787
+s283.STL.V01_1.4d	58958	2387050	55348	Proteobacteria Escherichia coli	Bacteroidetes Bacteroides vulgatus	45.73511	2531346.86828	0.538584440059575
+s248.STL.V01_1.4d	216441	10428551	208584	Proteobacteria Enterobacter cloacae	Bacteroidetes Bacteroides vulgatus	7.34095	1531204.7148	0.325788237191489
+s253.STL.V01_1.4d	65906	8567745	61492	Bacteroidetes Bacteroides vulgatus	Bacteroidetes Bacteroides vulgatus	24.34618	1497095.30056	0.318530915012766
+s295.STL.V01_1.4d	87891	6487122	80419	Firmicutes Staphylococcus epidermidis	Bacteroidetes Bacteroides vulgatus	17.03106	1369620.81414	0.291408683859574
+s196.STL.V01_1.4d	81733	6424517	77710	Firmicutes Staphylococcus epidermidis	Bacteroidetes Bacteroides vulgatus	16.25321	1263036.9491	0.268731265765957
+s153.STL.V01_1.4d	98689	15508274	94723	Proteobacteria Escherichia coli	Bacteroidetes Bacteroides vulgatus	10.69399	1012966.81477	0.215524854206383
+s210.STL.V01_1.4d	92753	6663784	80824	Bacteroidetes Bacteroides dorei	Bacteroidetes Bacteroides vulgatus	10.36557	837786.82968	0.178252516953191
+s101.STL.V01_1.4d	9168172	8990582	8917832	Proteobacteria Escherichia coli	Bacteroidetes Bacteroides vulgatus	0.04208	375262.37056	0.0798430575659574
+s207.STL.V01_1.4d	6137139	5925078	5901610	Proteobacteria Escherichia coli	Bacteroidetes Bacteroides vulgatus	0.06305	372096.5105	0.0791694703191489
+s322.STL.V01_1.4d	248883	2730974	221150	Proteobacteria Escherichia coli	Bacteroidetes Bacteroides vulgatus	1.369	302754.35	0.0644158191489362
+s127.STL.V01_1.4d	12835267	11795430	11493116	Proteobacteria Escherichia coli	Bacteroidetes Bacteroides vulgatus	0.01986	228253.28376	0.0485645284595745
+s185.STL.V01_1.4d	99048	1247317	95041	Firmicutes Enterococcus faecium	Bacteroidetes Bacteroides vulgatus	1.71459	162956.34819	0.0346715634446809
