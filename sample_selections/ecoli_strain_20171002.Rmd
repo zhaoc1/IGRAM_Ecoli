@@ -1,0 +1,351 @@
+---
+title: "Ecoli strain identification"
+author: "Chunyu Zhao"
+date: \today
+output: 
+  pdf_document:
+    includes:
+      in_header: header.tex 
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, echo=FALSE}
+knitr::opts_chunk$set(
+  tidy=FALSE,
+  cache=FALSE,
+  echo=FALSE,
+  message = FALSE,
+  warning = FALSE,
+  dpi=100,
+  fig.width = 10,
+  fig.height = 10,
+  fig.align = "center",
+  cache.lazy = FALSE,
+  dev=c("png", "pdf"),
+  warning=FALSE)
+```
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(qiimer)
+library(readr)
+library(tidyr)
+library(magrittr)
+library(reshape2)
+library(pheatmap)
+library(pander)
+library(broom)
+
+library(subfunc)
+library(grid)
+library(stringr)
+library(vegan)
+library(ape)
+library(forcats)
+library(lubridate)
+library(magrittr)
+
+library(colorRamps)
+library(RColorBrewer)
+
+library(ggbeeswarm)
+
+library(nlme)
+
+source("helper.R")
+
+require(Biostrings)
+library(Rsamtools)
+
+```
+
+# Refseq and ATCC E.coli genomes
+
+There are 24 E coli genomes in ATCC database. 
+
+- read in assembly_summary.txt
+
+```{r}
+genome_info <- read.delim("assembly_summary.txt", sep='\t', stringsAsFactors = FALSE) 
+
+library(stringr)
+extract_atcc <- function (x) {
+  str_extract(x, "ATCC (?:BAA-)?\\d+")
+}
+
+genome_info %<>% 
+  select(assembly_accession, species_taxid, taxid, organism_name, infraspecific_name, assembly_level, seq_rel_date) %>%
+  mutate(atcc = extract_atcc(infraspecific_name)) %>%
+  mutate(atcc = ifelse(is.na(atcc), extract_atcc(organism_name), atcc))
+```
+
+```{r}
+parse_fasta_file <- function(fasta_name, genome_fp){
+  fasta_file <- file.path(genome_fp, fasta_name)
+  indexFa(fasta_file)
+  
+  ret <- scanFaIndex(fasta_file) %>% as.data.frame()
+  
+  ret %<>% dplyr::rename(seq_accession = seqnames) %>%
+    dplyr::rename(seq_len = width)
+  
+  ret$assembly_accession <- fasta_name
+  
+  ret %<>% select(assembly_accession, everything())
+  
+  ret
+}
+```
+
+```{r, eval=FALSE}
+genome_fp <- file.path("ecoli_genome_fasta")
+fasta_files <- list.files(genome_fp, pattern=".fasta$")
+
+
+genome_fasta_info <- do.call(rbind, lapply(1:length(fasta_files), function(x) {parse_fasta_file(fasta_files[x], genome_fp)} ))
+
+
+genome_fasta_info %<>% mutate(assembly_accession = sub(".fasta","", assembly_accession))
+
+ecoli_genome <- merge(genome_info, genome_fasta_info, by="assembly_accession")
+
+ecoli_genome %>% write.table("20181229_ecoli_genome.txt", sep="\t")
+```
+
+```{r}
+ecoli_genome <- read.table("20181229_ecoli_genome.txt", sep="\t")
+```
+
+# metadata
+
+In this report, we looked at the `meconium` samples from IGRAM run1, and identified the strain of E.coli (Escherichia coli) from the annotation of de novo assembled contigs.
+
+Conclusion: the most abundance ATCC E. coli strain found in the samples is `ATCC 11775`, and the second candidate is `ATCC 25922`.
+
+## read in Sunbeam results
+
+```{r sample_sheet_import, echo=FALSE}
+mapping_file_name <- "mapping_file.txt"
+
+s <- read.delim("igram_meconium_sampleinfo.txt", sep="\t", stringsAsFactors = FALSE) 
+  
+s %<>% mutate(SampleID = ifelse(is.na(SampleID), as.character(sample_code), as.character(SampleID)))
+
+color_by <- "SampleType"
+shape_by <- ""
+```
+
+```{r}
+preprocess <- read.delim(file.path("sunbeam_output","preprocess_summary.tsv")) %>%
+  mutate(Samples = sub(".json", "", Samples)) %>%
+  mutate(low_quality = (fwd_only + rev_only + dropped) / input) %>%
+  mutate(human = true / input) %>%
+  mutate(non_human = false / input) 
+
+s <- merge(s, preprocess, by.x="SampleID", by.y = "Samples")
+```
+
+## read in metaphlan2 results
+
+```{r}
+remove_rank_prefix <- function (x) {
+  gsub("[kpcofgs]__", "", x, perl=TRUE)
+}
+
+replace_underscores <- function (x) {
+  gsub("_+", " ", x, perl=TRUE)
+}
+
+read_metaphlan2_table <- function (filepath, sample_prefix="PCMP_") {
+  df <- read.delim(filepath, comment.char="#")
+  props <- as.matrix(df[,-1])
+  colnames(props) <- sub(sample_prefix, "", colnames(props), fixed = TRUE)
+  rownames(props) <- replace_underscores(remove_rank_prefix(df[,1]))
+  props
+}
+
+props <- read_metaphlan2_table("sunbeam_output/taxonomic_assignments.tsv")
+
+filenames <- colnames(props)
+filenames = sub("-","_", filenames)
+colnames(props) <- filenames
+
+
+name1 = colnames(props)
+name2 = s$SampleID
+if(dim(props)[2]!= dim(s)[1]){
+  # filter out control samples without metaphlan2 result
+  missing_names = setdiff(name2,name1)
+  s <- s %>% filter(! SampleID %in% missing_names)
+
+  #- check for SampleID mismatch
+  missing_names = setdiff(name1, name2)
+  props <- props[,! name1 %in% missing_names]
+}
+
+adf <- split_assignments(rownames(props), split = "\\|")
+a <- simplify_assignments(adf, rank2 = "Species") 
+
+rownames(props) <- a
+```
+
+# Annotation of De novo assembled contigs
+
+Since there are some assemblies dataset in the refseq genome, thus we filtered out contigs (annotated as E. coli) shorter than 10 kbps.
+
+- read in ecoli_annotation_data.rda
+
+```{r}
+annotation_data <- readRDS(file.path("ecoli_annotation_data.rda"))
+
+annotation_data %<>% filter(SampleID %in% s$SampleID)
+
+annotation_data <- merge(annotation_data %>% select(SampleID: taxaID), ecoli_genome, by.x="ecoli_accession", by.y="seq_accession")
+annotation_data %<>% select(SampleID, contig, length, ecoli_accession, taxaID, assembly_accession, species_taxid, taxid, organism_name, infraspecific_name, assembly_level, seq_len, atcc)
+
+annotation_data %<>%
+  dplyr::rename(contig_len = length) %>%
+  dplyr::rename(genome_len = seq_len)
+```
+
+Then we mapped the reads back to each contigs (kepp all multiple alignment) by bowtie2 and collected the number of mapped reads for each contig.
+
+```{r}
+read_read_counts <- function(filepath){
+  read.delim(file.path(filepath),sep="\t", header=FALSE)  %>% 
+    dplyr::rename(ReadCounts = V2) %>%
+    dplyr::rename(contig = V1)
+}
+```
+
+## Heatmap for number of mapped reads for each ATCC E. coli strain 
+
+```{r}
+read_counts <- data_frame(FileName = list.files(
+  "sunbeam_output/summary_ecoli", pattern="*_counts")) %>%
+  group_by(FileName) %>%
+  do(read_read_counts(file.path("sunbeam_output/summary_ecoli", .$FileName))) %>%
+  ungroup() %>%
+  separate(FileName, into=c("SampleID","suffix"), sep="_counts") %>%
+  select(-suffix)
+
+#- need to map contig back to strain id 
+read_counts %<>% merge(annotation_data) %>% select(SampleID, atcc, ReadCounts)
+
+read_counts %<>% 
+  group_by(SampleID, atcc) %>%
+  summarise(TotalReadCounts = sum(ReadCounts), NumContig = n(), AveReadCounts = mean(ReadCounts)) %>%
+  ungroup() 
+#- what about same taxid, multiple reads
+
+contig_cts <- read_counts %>% select(SampleID, atcc, TotalReadCounts) %>% 
+  spread(atcc, TotalReadCounts, fill=0)
+samples <- contig_cts[,1] %>% as.data.frame()
+contig_cts <- contig_cts[,-1] %>% as.matrix()
+rownames(contig_cts) <- samples$SampleID
+
+colors = c("white", colorRampPalette(brewer.pal(11 , "Spectral" ))(99))
+breaks = c(seq(0, 6083081, length.out = 100))
+pheatmap(contig_cts, color = colors, breaks=breaks, number_format="%.0f", display_numbers = T)
+```
+
+\newpage
+\blandscape
+
+```{r}
+ecoli_genome %>%
+  group_by(assembly_accession) %>%
+  summarise(`NumSequences`=n(), `MaxSeqLen`=max(seq_len), MinSeqLen=min(seq_len), MedianSeqLen=median(seq_len)) %>%
+  merge(genome_info[,c("assembly_accession","organism_name","taxid","species_taxid","atcc")]) %>%
+  select(assembly_accession,species_taxid, taxid, organism_name, atcc, everything() ) %>%
+  arrange(NumSequences) %>%
+  pander(caption="E coli reference genome information summary", split.table =Inf)
+```
+
+\elandscape
+
+# name conversion for the second time point
+
+```{r}
+mapping_file <- "mapping_file.txt"
+s <- read.delim(mapping_file, sep='\t', stringsAsFactors = FALSE)
+
+preprocess <- read.delim(file.path("sunbeam_output","preprocess_summary.tsv")) %>%
+  mutate(Samples = sub(".json", "", Samples)) %>%
+  mutate(low_quality = (fwd_only + rev_only + dropped) / input) %>%
+  mutate(human = true / input) %>%
+  mutate(non_human = false / input) 
+
+## there are two samples s158 and s281 with inconsistent/duplicated SampleIDs; munually fixed.
+
+s <- merge(s, preprocess, by.x="SampleID", by.y = "Samples")
+
+s %<>% filter(SampleType %in% "STL") %>% 
+  filter(!study_day %in% "V05_4mo")
+  
+s %>% group_by(SubjectID) %>%
+  filter(n() != 2)
+
+## s158.STL.V02_1mo.2 <- high human reads in both replicates. so I only kept one
+s %<>% filter(! SampleID %in% "s158.STL.V02_1mo.2")
+
+## s281: name bugs 1-4d. either fix it from the scratch or i think we should be fine...
+```
+
+- now lets check the name convention
+
+```{r}
+s %<>% select(SampleID, SubjectID, SampleType, study_day)
+
+s %>% separate(SubjectID, into="SubID", remove=T, extra="drop") %>%
+  dplyr::rename(SubjectID = SubID) %>%
+  mutate(SampleIDpart1 = paste("s", SubjectID, sep="")) %>%
+  mutate(SampleIDre = paste(SampleIDpart1, SampleType, study_day, sep=".")) %>%
+  mutate(isEqual = ifelse(SampleIDre == SampleID, 1, 0)) %>%
+  filter(!isEqual)
+```
+
+## name conversionn
+
+- read in 20171120_Ecoli.txt, 20171122_Bvulgatus.txt and 20171117_Efaecalis.txt
+- write samples_1month_20180110.txt 
+
+```{r}
+s1_1 <- read.table("20171120_Ecoli.txt", sep="\t", header=T) %>%
+  filter(estCoverage > 6)
+s1_1 %<>% separate(SampleID, into=c("SubjectID","SampleType"), remove=T, extra="drop")
+
+s1_2 <- read.table("20171117_Efaecalis.txt", sep="\t", header=T) %>%
+  filter(estCoverage > 6)
+s1_2 %<>% separate(SampleID, into=c("SubjectID","SampleType"), remove=T, extra="drop")
+
+s1_3 <- read.table("20171122_Bvulgatus.txt", sep="\t", header=T) %>%
+  filter(estCoverage > 6)
+s1_3 %<>% separate(SampleID, into=c("SubjectID","SampleType"), remove=T, extra="drop")
+
+s1 <- rbind(s1_1, s1_2, s1_3)
+
+s2 <- s %>% filter(study_day %in% "V02_1mo") %>% 
+  separate(SubjectID, into="SubID", remove=T, extra="drop") %>%
+  mutate(SubjectID = paste('s' , SubID, sep="")) %>%
+  filter(SubjectID %in% s1$SubjectID)
+
+s2 %>% select(SampleID) %>% write.table("samples_1month_20180110.txt", quote=FALSE, sep="\t",row.names=FALSE, col.names=FALSE )
+```
+
+- write sample_conversion_1month_20180110.txt
+
+```{r}
+s %<>% separate(SubjectID, into="SubID", remove=T, extra="drop") %>%
+  mutate(SubjectID = paste('s' , SubID, sep="")) 
+
+s %>% filter(SubjectID %in% s1$SubjectID) %>% 
+  select(SampleID, SubjectID, study_day) %>%
+  spread(study_day, SampleID) %>%
+  dplyr::rename(from=`V01_1.4d`) %>%
+  dplyr::rename(to=`V02_1mo`) %>%
+  select(from, to) %>%
+  write.table("sample_conversion_1month_20180110.txt", quote=FALSE, sep="\t",row.names=FALSE, col.names=FALSE )
+```

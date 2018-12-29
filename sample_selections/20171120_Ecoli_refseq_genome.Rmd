@@ -1,0 +1,194 @@
+---
+title: "E coli refseq/external genomes"
+author: "PennCHOP Microbiome Program (Chunyu Zhao)"
+date: "11/21/2017"
+output: 
+  pdf_document:
+    includes:
+      in_header: header.tex 
+---
+
+```{r setup, echo=FALSE}
+knitr::opts_chunk$set(
+  tidy=FALSE,
+  cache=FALSE,
+  echo=FALSE,
+  message = FALSE,
+  warning = FALSE,
+  dpi=100,
+  fig.width = 10,
+  fig.height = 10,
+  fig.align = "center",
+  cache.lazy = FALSE,
+  dev=c("png", "pdf"),
+  warning=FALSE)
+```
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(qiimer)
+library(readr)
+library(tidyr)
+library(magrittr)
+library(reshape2)
+library(pheatmap)
+library(pander)
+library(broom)
+
+library(subfunc)
+library(grid)
+library(stringr)
+library(vegan)
+library(ape)
+library(forcats)
+library(lubridate)
+library(magrittr)
+
+library(colorRamps)
+library(RColorBrewer)
+
+library(ggbeeswarm)
+
+library(nlme)
+
+source("helper.R")
+
+require(Biostrings)
+library(Rsamtools)
+
+```
+
+# Read in sunbeam pipeline and metadata
+
+In this report, we looked at the `meconium` samples from IGRAM run1, and identified the strain of Escherichia coli from the annotation of de novo assembled contigs.
+
+```{r sample_sheet_import, echo=FALSE}
+mapping_file_name <- "mapping_file.txt"
+
+s <- read.delim("igram_meconium_sampleinfo.txt", sep="\t", stringsAsFactors = FALSE) 
+  
+s %<>% mutate(SampleID = ifelse(is.na(SampleID), as.character(sample_code), as.character(SampleID)))
+
+color_by <- "SampleType"
+shape_by <- ""
+
+preprocess <- read.delim(file.path("sunbeam_output","preprocess_summary.tsv")) %>%
+  mutate(Samples = sub(".json", "", Samples)) %>%
+  mutate(low_quality = (fwd_only + rev_only + dropped) / input) %>%
+  mutate(human = true / input) %>%
+  mutate(non_human = false / input) 
+
+s <- merge(s, preprocess, by.x="SampleID", by.y = "Samples")
+```
+
+# Read in metaphlan2 results
+
+```{r}
+#- 20170912
+remove_rank_prefix <- function (x) {
+  gsub("[kpcofgs]__", "", x, perl=TRUE)
+}
+
+replace_underscores <- function (x) {
+  gsub("_+", " ", x, perl=TRUE)
+}
+
+read_metaphlan2_table <- function (filepath, sample_prefix="PCMP_") {
+  df <- read.delim(filepath, comment.char="#")
+  props <- as.matrix(df[,-1])
+  colnames(props) <- sub(sample_prefix, "", colnames(props), fixed = TRUE)
+  rownames(props) <- replace_underscores(remove_rank_prefix(df[,1]))
+  props
+}
+
+props <- read_metaphlan2_table("sunbeam_output/taxonomic_assignments.tsv")
+
+#- we need to clean up the names (20170912)
+filenames <- colnames(props)
+filenames = sub("-","_", filenames)
+colnames(props) <- filenames
+
+
+name1 = colnames(props)
+name2 = s$SampleID
+if(dim(props)[2]!= dim(s)[1]){
+  # filter out control samples without metaphlan2 result
+  missing_names = setdiff(name2,name1)
+  s <- s %>% filter(! SampleID %in% missing_names)
+
+  #- check for SampleID mismatch
+  missing_names = setdiff(name1, name2)
+  props <- props[,! name1 %in% missing_names]
+}
+
+adf <- split_assignments(rownames(props), split = "\\|")
+a <- simplify_assignments(adf, rank2 = "Species") 
+
+rownames(props) <- a
+
+genus_props <- props
+```
+
+## Dominance
+
+```{r dominance, fig.width=8}
+top_df <- genus_props%>%
+  melt(c("Taxon", "SampleID"), value.name="Proportion") %>% 
+  merge(s, by= "SampleID") %>% 
+  group_by(SampleID) %>%
+  filter(Proportion == max(Proportion)) %>%
+  dplyr::slice(1) %>%
+  ungroup() %>%
+  select(SampleID, Taxon, Proportion) %>%
+  dplyr::rename(Dominance = Taxon) %>%
+  dplyr::rename(DominanceProp = Proportion)
+
+s %<>% merge(top_df, by="SampleID") %>%
+  mutate(Dominance = as.factor(Dominance))
+
+fig <- s %>% 
+  group_by(Dominance) %>%
+  summarise(Count= n()) %>%  
+  mutate(Count = Count / dim(s)[1]) %>%
+  arrange(desc(Count)) %>%
+  mutate(Dominance = factor(Dominance, levels = .$Dominance)) %>%
+  ggplot(aes(x=factor(1), y=Count, fill=Dominance)) +
+  geom_bar(width = 1, stat = "identity") +
+  coord_polar("y", start=0) +
+  theme_minimal() +
+  ggtitle("Dominace for all the samples")
+```
+
+```{r}
+genus_props_df <- genus_props %>%
+  melt(c("Taxon", "SampleID"), value.name = "Proportion")
+```
+
+# Escherichia coli
+
+The Escherichia coli genome was found to be a circular DNA molecule 4.6 million base pairs in length, containing 4288 annotated protein-coding genes (organized into 2584 operons), seven ribosomal RNA (rRNA) operons, and 86 transfer RNA (tRNA) genes.
+
+## Sample Selections
+
+- write 20171120_Ecoli.txt
+- write 20171120_SampleID_Ecoli.txt
+
+```{r}
+props_toadd <- genus_props_df %>% filter(Taxon %in% "Proteobacteria Escherichia coli") %>% droplevels()
+
+s_toTest <- s %>%
+  select(SampleID, NonHostReads, both_kept, false, Dominance) %>%
+  merge(props_toadd) %>%
+  mutate(estNumReads=Proportion * false) %>%
+  mutate(estCoverage=estNumReads / 4600000 ) %>%
+  arrange(desc(estCoverage))
+
+s_toTest %>% filter(estCoverage > 0 ) %>%
+  write.table("20171120_Ecoli.txt", sep="\t", quote=FALSE, row.names=FALSE)
+
+s_toTest %>%
+  filter(estCoverage > 4 ) %>%
+  select(SampleID) %>%
+  write.table("20171120_SampleID_Ecoli.txt", sep="\t", quote=FALSE, row.names=FALSE, col.names=FALSE)
+```

@@ -1,0 +1,255 @@
+---
+title: "E faecalis refseq/external genomes"
+author: "PennCHOP Microbiome Program (Chunyu Zhao)"
+date: "11/17/2017"
+output: 
+  pdf_document:
+    includes:
+      in_header: header.tex 
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, echo=FALSE}
+knitr::opts_chunk$set(
+  tidy=FALSE,
+  cache=FALSE,
+  echo=FALSE,
+  message = FALSE,
+  warning = FALSE,
+  dpi=100,
+  fig.width = 10,
+  fig.height = 10,
+  fig.align = "center",
+  cache.lazy = FALSE,
+  dev=c("png", "pdf"),
+  warning=FALSE)
+```
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(qiimer)
+library(readr)
+library(tidyr)
+library(magrittr)
+library(reshape2)
+library(pheatmap)
+library(pander)
+library(broom)
+
+library(subfunc)
+library(grid)
+library(stringr)
+library(vegan)
+library(ape)
+library(forcats)
+library(lubridate)
+library(magrittr)
+
+library(colorRamps)
+library(RColorBrewer)
+
+library(ggbeeswarm)
+
+library(nlme)
+
+source("helper.R")
+
+require(Biostrings)
+library(Rsamtools)
+
+```
+
+# Read in sunbeam pipeline and metadata
+
+In this report, we looked at the `meconium` samples from IGRAM run1, and identified the strain of E faecalis from the annotation of de novo assembled contigs.
+
+```{r sample_sheet_import, echo=FALSE}
+mapping_file_name <- "mapping_file.txt"
+
+s <- read.delim("igram_meconium_sampleinfo.txt", sep="\t", stringsAsFactors = FALSE) 
+  
+s %<>% mutate(SampleID = ifelse(is.na(SampleID), as.character(sample_code), as.character(SampleID)))
+
+color_by <- "SampleType"
+shape_by <- ""
+```
+
+```{r}
+preprocess <- read.delim(file.path("sunbeam_output","preprocess_summary.tsv")) %>%
+  mutate(Samples = sub(".json", "", Samples)) %>%
+  mutate(low_quality = (fwd_only + rev_only + dropped) / input) %>%
+  mutate(human = true / input) %>%
+  mutate(non_human = false / input) 
+
+s <- merge(s, preprocess, by.x="SampleID", by.y = "Samples")
+```
+
+# Read in metaphlan2 results
+
+```{r}
+#- 20170912
+remove_rank_prefix <- function (x) {
+  gsub("[kpcofgs]__", "", x, perl=TRUE)
+}
+
+replace_underscores <- function (x) {
+  gsub("_+", " ", x, perl=TRUE)
+}
+
+read_metaphlan2_table <- function (filepath, sample_prefix="PCMP_") {
+  df <- read.delim(filepath, comment.char="#")
+  props <- as.matrix(df[,-1])
+  colnames(props) <- sub(sample_prefix, "", colnames(props), fixed = TRUE)
+  rownames(props) <- replace_underscores(remove_rank_prefix(df[,1]))
+  props
+}
+
+props <- read_metaphlan2_table("sunbeam_output/taxonomic_assignments.tsv")
+
+#- we need to clean up the names (20170912)
+filenames <- colnames(props)
+filenames = sub("-","_", filenames)
+colnames(props) <- filenames
+
+
+name1 = colnames(props)
+name2 = s$SampleID
+if(dim(props)[2]!= dim(s)[1]){
+  # filter out control samples without metaphlan2 result
+  missing_names = setdiff(name2,name1)
+  s <- s %>% filter(! SampleID %in% missing_names)
+
+  #- check for SampleID mismatch
+  missing_names = setdiff(name1, name2)
+  props <- props[,! name1 %in% missing_names]
+}
+
+adf <- split_assignments(rownames(props), split = "\\|")
+a <- simplify_assignments(adf, rank2 = "Species") 
+
+rownames(props) <- a
+
+genus_props <- props
+```
+
+## Dominance
+
+```{r dominance, fig.width=8}
+top_df <- genus_props%>%
+  melt(c("Taxon", "SampleID"), value.name="Proportion") %>% 
+  merge(s, by= "SampleID") %>% 
+  group_by(SampleID) %>%
+  filter(Proportion == max(Proportion)) %>%
+  dplyr::slice(1) %>%
+  ungroup() %>%
+  select(SampleID, Taxon, Proportion) %>%
+  dplyr::rename(Dominance = Taxon) %>%
+  dplyr::rename(DominanceProp = Proportion)
+
+s %<>% merge(top_df, by="SampleID") %>%
+  mutate(Dominance = as.factor(Dominance))
+
+fig <- s %>% 
+  group_by(Dominance) %>%
+  summarise(Count= n()) %>%  
+  mutate(Count = Count / dim(s)[1]) %>%
+  arrange(desc(Count)) %>%
+  mutate(Dominance = factor(Dominance, levels = .$Dominance)) %>%
+  ggplot(aes(x=factor(1), y=Count, fill=Dominance)) +
+  geom_bar(width = 1, stat = "identity") +
+  coord_polar("y", start=0) +
+  theme_minimal() +
+  ggtitle("Dominace for all the samples")
+```
+
+# Enterococcus faecalis
+
+The E. faecalis genome consists of 3.22 million base pairs with 3,113 protein-coding genes.[19]
+
+## Sample Selections
+
+- write 20171117_Efaecalis.txt
+- write 20171117_SampleID_Efaecalis.txt
+
+```{r}
+genus_props_df <- genus_props %>%
+  melt(c("Taxon", "SampleID"), value.name = "Proportion")
+
+props_toadd <- genus_props_df %>% filter(Taxon %in% "Firmicutes Enterococcus faecalis") %>% droplevels()
+
+s_toTest <- s %>%
+  select(SampleID, NonHostReads, both_kept, false, Dominance) %>%
+  merge(props_toadd) %>%
+  mutate(estNumReads=Proportion * false) %>%
+  mutate(estCoverage=estNumReads / 3220000 ) %>%
+  arrange(desc(estCoverage))
+
+s_toTest %>% filter(estCoverage > 0 ) %>%
+  write.table("20171117_Efaecalis.txt", sep="\t", quote=FALSE, row.names=FALSE)
+
+s_toTest %>%
+  filter(estCoverage > 2 ) %>%
+  select(SampleID) %>%
+  write.table("20171117_SampleID_Efaecalis.txt", sep="\t", quote=FALSE, row.names=FALSE, col.names=FALSE)
+```
+
+## Assembly summary
+
+- read in 20171117_Efaecalis/assembly_summary.txt
+- write 20171117_Efaecalis_accession.txt
+
+```{r}
+genome_info <- read.delim("20171117_Efaecalis/assembly_summary.txt", sep='\t', stringsAsFactors = FALSE) 
+
+genome_info %<>% filter(assembly_level %in% c("Chromosome","Complete Genome"))
+
+genome_info %<>% filter(! infraspecific_name %in% "")
+
+genome_info %<>% mutate(genome_name = paste("E faecalis",infraspecific_name, sep=" "))
+
+genome_info %>% select(assembly_accession) %>%
+   write.table("20171117_Efaecalis_accession.txt", quote=FALSE, row.names=FALSE, col.names=FALSE)
+```
+
+## External genome
+
+- write 20171117_faecalis-external-genomes.txt
+
+```{r}
+library(lubridate)
+
+temp <- genome_info %>%
+  select(genome_name, assembly_accession, seq_rel_date) %>%
+  mutate(assembly_accession = gsub("\\.\\d", "", assembly_accession)) %>%
+  mutate(contigs_db_path = paste0(assembly_accession, ".db")) %>%
+  dplyr::rename(name = genome_name) %>%
+  mutate(name=gsub(" ","_", name)) %>%
+  mutate(name=gsub("-","_", name)) %>%
+  mutate(name=gsub(":","_", name)) %>%
+  mutate(name=gsub("substr\\._","", name)) %>%
+  mutate(name=gsub("str\\._","", name)) %>%
+  mutate(name=gsub("=","_", name)) %>%
+  select(-assembly_accession) 
+
+temp %<>%
+  mutate(seq_rel_date = mdy(as.character(seq_rel_date))) %>%
+  mutate(seq_rel_date = as.Date(seq_rel_date)) %>%
+  group_by(name) %>%
+  arrange(desc(seq_rel_date)) %>%
+  filter(row_number() == 1) %>% 
+  ungroup() %>%
+  select(-seq_rel_date)
+  
+temp %>% write.table("20171117_faecalis-external-genomes.txt", quote=FALSE, row.names=FALSE, sep="\t")
+```
+
+```{bash, eval=FALSE}
+#1. convert fasta files into 
+for i in *.fa
+do
+	anvi-script-FASTA-to-contigs-db $i
+done
+```
+

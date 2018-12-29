@@ -1,0 +1,16 @@
+name	contigs_db_path
+E_faecalis_strain_KB1	GCF_002221625.db
+E_faecalis_strain_sorialis	GCF_002163735.db
+E_faecalis_strain_DD14	GCF_002140075.db
+E_faecalis_strain_CLB21560	GCF_001989555.db
+E_faecalis_strain_AMB05	GCF_001931845.db
+E_faecalis_strain_L12	GCF_001886675.db
+E_faecalis_strain_L9	GCF_001878735.db
+E_faecalis_strain_W11	GCF_002355755.db
+E_faecalis_strain_LD33	GCF_001598635.db
+E_faecalis_strain_ATCC_29212	GCF_000742975.db
+E_faecalis_strain_DENG1	GCF_000550745.db
+E_faecalis_strain_Symbioflor_1	GCF_000317915.db
+E_faecalis_strain_D32	GCF_000281195.db
+E_faecalis_strain_OG1RF	GCF_000172575.db
+E_faecalis_strain_V583	GCF_000007785.db
