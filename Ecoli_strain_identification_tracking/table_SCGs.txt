@@ -1,0 +1,500 @@
+SampleID	Genus	NumCoreGenes
+s101.STL.V01_1.4d	Enterobacter Enterobacter cloacae	19
+s101.STL.V01_1.4d	Enterobacter Enterobacter hormaechei	32
+s101.STL.V01_1.4d	Enterobacter Enterobacter sp. 50858885	5
+s101.STL.V01_1.4d	Enterobacter Enterobacter sp. BIDMC100	12
+s101.STL.V01_1.4d	Enterobacter Enterobacter sp. BIDMC109	18
+s101.STL.V01_1.4d	Enterobacter Enterobacter sp. BIDMC110	3
+s101.STL.V01_1.4d	Enterobacter Enterobacter sp. BIDMC93	1
+s101.STL.V01_1.4d	Enterobacter Enterobacter sp. BIDMC94	1
+s101.STL.V01_1.4d	Enterobacter Enterobacter sp. BWH52	19
+s101.STL.V01_1.4d	Enterobacter Enterobacter sp. MGH119	12
+s101.STL.V01_1.4d	Enterobacter Enterobacter sp. MGH128	2
+s101.STL.V01_1.4d	Enterobacter Enterobacter sp. MGH 38	6
+s101.STL.V01_1.4d	Enterobacter Enterobacter sp. MGH 7	1
+s101.STL.V01_1.4d	Enterobacter Enterobacter sp. MGH86	2
+s101.STL.V01_1.4d	Enterobacter Enterobacter sp. ST121:950178628	17
+s101.STL.V01_1.4d	Enterobacter Enterobacter xiangfangensis	1
+s101.STL.V01_1.4d	Escherichia Escherichia coli	164
+s104.STL.V01_1.4d	Escherichia Escherichia coli	140
+s105.STL.V01_1.4d	Escherichia Escherichia coli	139
+s107.STL.V01_1.4d	Staphylococcus Staphylococcus aureus	141
+s111.STL.V01_1.4d	Citrobacter Citrobacter braakii	9
+s111.STL.V01_1.4d	Citrobacter Citrobacter sp. KTE151	27
+s111.STL.V01_1.4d	Citrobacter Citrobacter sp. KTE32	94
+s111.STL.V01_1.4d	Coprobacillus Coprobacillus sp. D6	37
+s111.STL.V01_1.4d	Enterobacter Enterobacter sp. GN02600	9
+s111.STL.V01_1.4d	Enterococcus Enterococcus faecalis	148
+s117.STL.V01_1.4d	Klebsiella Klebsiella oxytoca	3
+s117.STL.V01_1.4d	Klebsiella Klebsiella pneumoniae	143
+s117.STL.V01_1.4d	Klebsiella Klebsiella variicola	2
+s125.STL.V01_1.4d	Enterococcus Enterococcus faecalis	144
+s125.STL.V01_1.4d	Escherichia Escherichia coli	139
+s125.STL.V01_1.4d	Haemophilus Haemophilus parainfluenzae	1
+s125.STL.V01_1.4d	Haemophilus Haemophilus sp. HMSC068C11	1
+s125.STL.V01_1.4d	Haemophilus Haemophilus sp. HMSC71H05	3
+s125.STL.V01_1.4d	Staphylococcus Staphylococcus epidermidis	4
+s125.STL.V01_1.4d	Streptococcus Streptococcus parasanguinis	19
+s125.STL.V01_1.4d	Streptococcus Streptococcus sp. 1171_SSPC	1
+s125.STL.V01_1.4d	Streptococcus Streptococcus sp. A12	1
+s125.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC057G03	3
+s125.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC061E03	7
+s125.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC065C01	2
+s125.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC065E03	3
+s125.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC072C09	17
+s125.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC072G04	3
+s125.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC073D05	1
+s125.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC074F05	8
+s125.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC076C09	21
+s125.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC078D09	3
+s125.STL.V01_1.4d	Streptococcus Streptococcus sp. HPH0090	1
+s127.STL.V01_1.4d	Escherichia Escherichia coli	154
+s128.STL.V01_1.4d	Bacteroides Bacteroides dorei	4
+s128.STL.V01_1.4d	Bacteroides Bacteroides sp. 3_1_33FAA	1
+s128.STL.V01_1.4d	Bacteroides Bacteroides sp. 3_1_40A	6
+s128.STL.V01_1.4d	Bacteroides Bacteroides sp. 4_3_47FAA	4
+s128.STL.V01_1.4d	Bacteroides Bacteroides vulgatus	119
+s128.STL.V01_1.4d	Citrobacter Citrobacter koseri	16
+s128.STL.V01_1.4d	Escherichia Escherichia coli	140
+s128.STL.V01_1.4d	Parabacteroides Parabacteroides distasonis	2
+s128.STL.V01_1.4d	Salmonella Salmonella sp. HMSC13B08	70
+s145.STL.V01_1.4d	Escherichia Escherichia coli	139
+s157.STL.V01_1.4d	Bacteroides Bacteroides dorei	4
+s157.STL.V01_1.4d	Bacteroides Bacteroides sp. 3_1_40A	2
+s157.STL.V01_1.4d	Bacteroides Bacteroides sp. 9_1_42FAA	3
+s157.STL.V01_1.4d	Bacteroides Bacteroides vulgatus	137
+s157.STL.V01_1.4d	Clostridium Clostridium disporicum	2
+s157.STL.V01_1.4d	Cronobacter Cronobacter malonaticus	16
+s157.STL.V01_1.4d	Cronobacter Cronobacter turicensis	124
+s157.STL.V01_1.4d	Escherichia Escherichia coli	137
+s157.STL.V01_1.4d	Shigella Shigella flexneri	7
+s160.STL.V01_1.4d	Enterococcus Enterococcus faecalis	38
+s160.STL.V01_1.4d	Enterococcus Enterococcus sp. HMSC078F03	105
+s160.STL.V01_1.4d	Pantoea Pantoea dispersa	84
+s160.STL.V01_1.4d	Parabacteroides Parabacteroides distasonis	2
+s160.STL.V01_1.4d	Staphylococcus Staphylococcus epidermidis	30
+s160.STL.V01_1.4d	Type-C symbiont of Plautia stali	57
+s161.STL.V01_1.4d	Anaerotruncus Anaerotruncus sp. G3(2012)	1
+s161.STL.V01_1.4d	Bacteria Firmicutes Clostridia Clostridia bacterium UC5.1-2H6	1
+s161.STL.V01_1.4d	Bacteria Firmicutes Clostridia Clostridiales Clostridiales bacterium VE202-18	13
+s161.STL.V01_1.4d	Bacteroides Bacteroides caccae	2
+s161.STL.V01_1.4d	Bacteroides Bacteroides fragilis	103
+s161.STL.V01_1.4d	Bacteroides Bacteroides ovatus	97
+s161.STL.V01_1.4d	Bacteroides Bacteroides sp. 1_1_6	5
+s161.STL.V01_1.4d	Bacteroides Bacteroides sp. 2_1_16	3
+s161.STL.V01_1.4d	Bacteroides Bacteroides sp. 2_2_4	7
+s161.STL.V01_1.4d	Bacteroides Bacteroides sp. 3_1_23	25
+s161.STL.V01_1.4d	Bacteroides Bacteroides sp. 3_2_5	4
+s161.STL.V01_1.4d	Bacteroides Bacteroides sp. D2	3
+s161.STL.V01_1.4d	Bacteroides Bacteroides sp. HMSC068A09	1
+s161.STL.V01_1.4d	Bacteroides Bacteroides sp. HMSC073E02	8
+s161.STL.V01_1.4d	Bacteroides Bacteroides thetaiotaomicron	19
+s161.STL.V01_1.4d	Blautia Blautia hansenii	1
+s161.STL.V01_1.4d	Blautia [Ruminococcus] gnavus	148
+s161.STL.V01_1.4d	Coprobacillus Coprobacillus sp. 3_3_56FAA	24
+s161.STL.V01_1.4d	Coprobacillus Coprobacillus sp. 8_2_54BFAA	4
+s161.STL.V01_1.4d	Coprobacillus Coprobacillus sp. D7	16
+s161.STL.V01_1.4d	Erysipelatoclostridium Erysipelatoclostridium ramosum	89
+s161.STL.V01_1.4d	Escherichia Escherichia coli	129
+s161.STL.V01_1.4d	Escherichia Escherichia sp. 3_2_53FAA	12
+s161.STL.V01_1.4d	Klebsiella Klebsiella pneumoniae	110
+s161.STL.V01_1.4d	Lachnospiraceae bacterium 2_1_58FAA	9
+s161.STL.V01_1.4d	Lachnospiraceae bacterium 9_1_43BFAA	1
+s161.STL.V01_1.4d	Massilimaliae Massilimaliae massiliensis	1
+s161.STL.V01_1.4d	Megasphaera Megasphaera sp. MJR8396C	146
+s161.STL.V01_1.4d	Streptococcus Streptococcus infantarius	8
+s161.STL.V01_1.4d	Streptococcus Streptococcus lutetiensis	17
+s161.STL.V01_1.4d	Tyzzerella Tyzzerella nexilis	2
+s165.STL.V01_1.4d	Neisseria Neisseria lactamica	1
+s169.STL.V01_1.4d	Haemophilus Haemophilus parainfluenzae	24
+s169.STL.V01_1.4d	Haemophilus Haemophilus sp. CCUG 60358	5
+s169.STL.V01_1.4d	Haemophilus Haemophilus sp. HMSC061E01	2
+s169.STL.V01_1.4d	Haemophilus Haemophilus sp. HMSC066D03	8
+s169.STL.V01_1.4d	Haemophilus Haemophilus sp. HMSC068C11	20
+s169.STL.V01_1.4d	Haemophilus Haemophilus sp. HMSC073C03	8
+s169.STL.V01_1.4d	Haemophilus Haemophilus sp. HMSC61B11	4
+s169.STL.V01_1.4d	Haemophilus Haemophilus sp. HMSC71H05	70
+s169.STL.V01_1.4d	Pantoea Pantoea dispersa	76
+s169.STL.V01_1.4d	Proteus Proteus mirabilis	25
+s169.STL.V01_1.4d	Proteus Proteus sp. HMSC14B05	8
+s169.STL.V01_1.4d	Streptococcus Streptococcus australis	1
+s169.STL.V01_1.4d	Streptococcus Streptococcus parasanguinis	16
+s169.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC057G03	3
+s169.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC061E03	11
+s169.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC065C01	5
+s169.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC065E03	4
+s169.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC072C09	3
+s169.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC074F05	1
+s169.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC076C09	1
+s169.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC078D09	2
+s169.STL.V01_1.4d	Type-C symbiont of Plautia stali	64
+s169.STL.V01_1.4d	Veillonella Veillonella dispar	146
+s169.STL.V01_1.4d	Veillonella Veillonella parvula	3
+s169.STL.V01_1.4d	Veillonella Veillonella sp. 3_1_44	2
+s173.STL.V01_1.4d	Granulicatella Granulicatella adiacens	4
+s173.STL.V01_1.4d	Granulicatella Granulicatella sp. 572.rep2_STHE	11
+s173.STL.V01_1.4d	Granulicatella Granulicatella sp. HMSC30F09	2
+s173.STL.V01_1.4d	Granulicatella Granulicatella sp. HMSC31F03	3
+s173.STL.V01_1.4d	Neisseria Neisseria flavescens	2
+s173.STL.V01_1.4d	Neisseria Neisseria lactamica	17
+s173.STL.V01_1.4d	Neisseria Neisseria mucosa	18
+s173.STL.V01_1.4d	Neisseria Neisseria sp. HMSC056A03	2
+s173.STL.V01_1.4d	Neisseria Neisseria sp. HMSC058F07	2
+s173.STL.V01_1.4d	Neisseria Neisseria sp. HMSC061B04	16
+s173.STL.V01_1.4d	Neisseria Neisseria sp. HMSC061E12	1
+s173.STL.V01_1.4d	Neisseria Neisseria sp. HMSC061H08	1
+s173.STL.V01_1.4d	Neisseria Neisseria sp. HMSC063B05	3
+s173.STL.V01_1.4d	Neisseria Neisseria sp. HMSC066H01	14
+s173.STL.V01_1.4d	Neisseria Neisseria sp. HMSC068C04	1
+s173.STL.V01_1.4d	Neisseria Neisseria sp. HMSC068C12	3
+s173.STL.V01_1.4d	Neisseria Neisseria sp. HMSC075C10	5
+s173.STL.V01_1.4d	Neisseria Neisseria sp. HMSC078C12	8
+s173.STL.V01_1.4d	Neisseria Neisseria sp. HMSC15G01	1
+s173.STL.V01_1.4d	Neisseria Neisseria subflava	1
+s173.STL.V01_1.4d	Streptococcus Streptococcus mitis	7
+s173.STL.V01_1.4d	Streptococcus Streptococcus mutans	1
+s173.STL.V01_1.4d	Streptococcus Streptococcus parasanguinis	58
+s173.STL.V01_1.4d	Streptococcus Streptococcus pseudopneumoniae	3
+s173.STL.V01_1.4d	Streptococcus Streptococcus salivarius	73
+s173.STL.V01_1.4d	Streptococcus Streptococcus sp. 1171_SSPC	2
+s173.STL.V01_1.4d	Streptococcus Streptococcus sp. 263_SSPC	119
+s173.STL.V01_1.4d	Streptococcus Streptococcus sp. 449_SSPC	3
+s173.STL.V01_1.4d	Streptococcus Streptococcus sp. ACS2	2
+s173.STL.V01_1.4d	Streptococcus Streptococcus sp. C150	2
+s173.STL.V01_1.4d	Streptococcus Streptococcus sp. CCH5-D3	2
+s173.STL.V01_1.4d	Streptococcus Streptococcus sp. CCH8-H5	3
+s173.STL.V01_1.4d	Streptococcus Streptococcus sp. F0442	2
+s173.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC057G03	49
+s173.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC061E03	4
+s173.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC064H09	1
+s173.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC065C01	12
+s173.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC065E03	10
+s173.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC072C09	15
+s173.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC072G04	6
+s173.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC073D05	5
+s173.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC074F05	23
+s173.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC076C09	32
+s173.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC078D09	13
+s173.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC078H03	50
+s173.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC078H12	5
+s173.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC10E12	3
+s173.STL.V01_1.4d	Streptococcus Streptococcus sp. SR4	6
+s173.STL.V01_1.4d	Streptococcus Streptococcus thermophilus	8
+s176.STL.V01_1.4d	Bacteroides Bacteroides vulgatus	140
+s176.STL.V01_1.4d	Escherichia Escherichia coli	139
+s184.STL.V01_1.4d	Bacteroides Bacteroides sp. 3_1_40A	3
+s184.STL.V01_1.4d	Bacteroides Bacteroides sp. 4_3_47FAA	8
+s184.STL.V01_1.4d	Bacteroides Bacteroides uniformis	1
+s184.STL.V01_1.4d	Bacteroides Bacteroides vulgatus	129
+s184.STL.V01_1.4d	Clostridium Clostridium butyricum	3
+s184.STL.V01_1.4d	Clostridium Clostridium neonatale	6
+s184.STL.V01_1.4d	Clostridium Clostridium paraputrificum	2
+s184.STL.V01_1.4d	Clostridium Clostridium sp. 7_2_43FAA	31
+s184.STL.V01_1.4d	Clostridium Clostridium sp. BL-8	1
+s184.STL.V01_1.4d	Clostridium Clostridium sp. Marseille-P2414	105
+s184.STL.V01_1.4d	Enterococcus Enterococcus faecalis	75
+s184.STL.V01_1.4d	Enterococcus Enterococcus sp. HMSC078F03	68
+s184.STL.V01_1.4d	Escherichia Escherichia coli	139
+s184.STL.V01_1.4d	Staphylococcus Staphylococcus epidermidis	117
+s184.STL.V01_1.4d	Staphylococcus Staphylococcus lugdunensis	54
+s184.STL.V01_1.4d	Staphylococcus Staphylococcus sp. HMSC062D12	1
+s184.STL.V01_1.4d	Staphylococcus Staphylococcus sp. HMSC065E07	1
+s184.STL.V01_1.4d	Staphylococcus Staphylococcus sp. HMSC068D05	2
+s184.STL.V01_1.4d	Staphylococcus Staphylococcus sp. HMSC072H01	22
+s184.STL.V01_1.4d	Staphylococcus Staphylococcus sp. HMSC077D09	2
+s184.STL.V01_1.4d	Staphylococcus Staphylococcus sp. HMSC077E12	1
+s184.STL.V01_1.4d	Streptococcus Streptococcus salivarius	9
+s184.STL.V01_1.4d	Streptococcus Streptococcus sp. ACS2	2
+s184.STL.V01_1.4d	Streptococcus Streptococcus sp. CCH8-H5	1
+s184.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC064H09	1
+s184.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC065H07	1
+s184.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC072G04	1
+s184.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC076C09	1
+s184.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC078H03	14
+s184.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC078H12	1
+s184.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC10E12	1
+s185.STL.V01_1.4d	Enterococcus Enterococcus faecium	130
+s185.STL.V01_1.4d	Enterococcus Enterococcus sp. HMSC067C01	1
+s187.STL.V01_1.4d	Enterococcus Enterococcus faecalis	144
+s187.STL.V01_1.4d	Staphylococcus Staphylococcus epidermidis	129
+s187.STL.V01_1.4d	Staphylococcus Staphylococcus lugdunensis	1
+s187.STL.V01_1.4d	Staphylococcus Staphylococcus sp. HMSC034C12	1
+s187.STL.V01_1.4d	Staphylococcus Staphylococcus sp. HMSC072H01	13
+s187.STL.V01_1.4d	Staphylococcus Staphylococcus sp. HMSC075A04	1
+s187.STL.V01_1.4d	Staphylococcus Staphylococcus sp. HMSC077G12	2
+s188.STL.V01_1.4d	Enterococcus Enterococcus faecalis	139
+s188.STL.V01_1.4d	Escherichia Escherichia coli	139
+s188.STL.V01_1.4d	Streptococcus Streptococcus equinus	48
+s188.STL.V01_1.4d	Streptococcus Streptococcus gallolyticus	9
+s188.STL.V01_1.4d	Streptococcus Streptococcus lutetiensis	1
+s188.STL.V01_1.4d	Streptococcus Streptococcus pasteurianus	81
+s192.STL.V01_1.4d	Bacteroides Bacteroides vulgatus	2
+s192.STL.V01_1.4d	Methylobacterium Methylobacterium sp. B1	1
+s192.STL.V01_1.4d	Methylobacterium Methylobacterium sp. Leaf111	8
+s192.STL.V01_1.4d	Methylobacterium Methylobacterium sp. Leaf125	1
+s192.STL.V01_1.4d	Methylobacterium Methylobacterium sp. Leaf465	5
+s192.STL.V01_1.4d	Methylobacterium Methylobacterium sp. Leaf88	3
+s192.STL.V01_1.4d	Methylobacterium Methylobacterium sp. Leaf89	3
+s192.STL.V01_1.4d	Methylobacterium Methylobacterium sp. Leaf94	2
+s192.STL.V01_1.4d	Methylobacterium Methylobacterium sp. UNCCL110	2
+s193.STL.V01_1.4d	Bacteroides Bacteroides dorei	104
+s193.STL.V01_1.4d	Bacteroides Bacteroides sp. 3_1_33FAA	10
+s193.STL.V01_1.4d	Bacteroides Bacteroides sp. 3_1_40A	5
+s193.STL.V01_1.4d	Bacteroides Bacteroides sp. 4_3_47FAA	3
+s193.STL.V01_1.4d	Bacteroides Bacteroides sp. 9_1_42FAA	28
+s193.STL.V01_1.4d	Bacteroides Bacteroides stercorirosoris	1
+s193.STL.V01_1.4d	Bacteroides Bacteroides vulgatus	72
+s193.STL.V01_1.4d	Bifidobacterium Bifidobacterium breve	28
+s193.STL.V01_1.4d	Bifidobacterium Bifidobacterium dentium	25
+s193.STL.V01_1.4d	Bifidobacterium Bifidobacterium scardovii	141
+s193.STL.V01_1.4d	Bifidobacterium Bifidobacterium sp. MSTE12	97
+s193.STL.V01_1.4d	Enterobacter Enterobacter sp. BIDMC110	16
+s193.STL.V01_1.4d	Enterobacter Enterobacter sp. BIDMC93	9
+s193.STL.V01_1.4d	Enterobacter Enterobacter sp. BIDMC99	2
+s193.STL.V01_1.4d	Enterobacter Enterobacter sp. BWH64	8
+s193.STL.V01_1.4d	Enterobacter Enterobacter sp. MGH 33	46
+s193.STL.V01_1.4d	Enterobacter Enterobacter sp. MGH86	10
+s193.STL.V01_1.4d	Enterobacter Enterobacter xiangfangensis	12
+s193.STL.V01_1.4d	Klebsiella Klebsiella pneumoniae	10
+s193.STL.V01_1.4d	Klebsiella Klebsiella sp. 4_1_44FAA	2
+s193.STL.V01_1.4d	Klebsiella Klebsiella sp. AA405	1
+s193.STL.V01_1.4d	Klebsiella Klebsiella sp. HMSC16A12	10
+s193.STL.V01_1.4d	Klebsiella Klebsiella sp. MS 92-3	2
+s193.STL.V01_1.4d	Klebsiella Klebsiella sp. S1	1
+s193.STL.V01_1.4d	Lactobacillus Lactobacillus gasseri	139
+s193.STL.V01_1.4d	Lactobacillus Lactobacillus salivarius	37
+s193.STL.V01_1.4d	Leclercia Leclercia adecarboxylata	1
+s193.STL.V01_1.4d	Pedobacter Pedobacter himalayensis	36
+s193.STL.V01_1.4d	Rothia Rothia sp. HMSC062F03	4
+s193.STL.V01_1.4d	Rothia Rothia sp. HMSC068F09	4
+s193.STL.V01_1.4d	Rothia Rothia sp. HMSC072B03	1
+s193.STL.V01_1.4d	Rothia Rothia sp. HMSC072E10	2
+s193.STL.V01_1.4d	Streptococcus Streptococcus salivarius	72
+s193.STL.V01_1.4d	Streptococcus Streptococcus sp. 449_SSPC	3
+s193.STL.V01_1.4d	Streptococcus Streptococcus sp. ACS2	3
+s193.STL.V01_1.4d	Streptococcus Streptococcus sp. C150	4
+s193.STL.V01_1.4d	Streptococcus Streptococcus sp. CCH5-D3	12
+s193.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC065H07	6
+s193.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC068F04	3
+s193.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC078H03	19
+s193.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC078H12	11
+s193.STL.V01_1.4d	Streptococcus Streptococcus sp. SR4	13
+s193.STL.V01_1.4d	Veillonella Veillonella atypica	53
+s193.STL.V01_1.4d	Veillonella Veillonella sp. 6_1_27	1
+s193.STL.V01_1.4d	Veillonella Veillonella sp. ACP1	10
+s193.STL.V01_1.4d	Veillonella Veillonella sp. HPA0037	70
+s193.STL.V01_1.4d	Veillonella Veillonella sp. ICM51a	19
+s196.STL.V01_1.4d	Staphylococcus Staphylococcus epidermidis	1
+s202.STL.V01_1.4d	Enterobacter Enterobacter cloacae	24
+s202.STL.V01_1.4d	Enterobacter Enterobacter cloacae complex sp. GN05729	2
+s202.STL.V01_1.4d	Enterobacter Enterobacter hormaechei	9
+s202.STL.V01_1.4d	Enterobacter Enterobacter sp. BIDMC100	4
+s202.STL.V01_1.4d	Enterobacter Enterobacter sp. BWH52	16
+s202.STL.V01_1.4d	Enterobacter Enterobacter sp. MGH119	22
+s202.STL.V01_1.4d	Enterobacter Enterobacter sp. MGH128	7
+s202.STL.V01_1.4d	Enterobacter Enterobacter sp. MGH 14	4
+s202.STL.V01_1.4d	Enterobacter Enterobacter sp. MGH 38	12
+s202.STL.V01_1.4d	Enterobacter Enterobacter sp. MGH 7	14
+s202.STL.V01_1.4d	Enterobacter Enterobacter sp. ST121:950178628	24
+s202.STL.V01_1.4d	Enterococcus Enterococcus faecalis	99
+s202.STL.V01_1.4d	Escherichia Escherichia coli	150
+s202.STL.V01_1.4d	Streptococcus Streptococcus equinus	33
+s202.STL.V01_1.4d	Streptococcus Streptococcus lutetiensis	1
+s202.STL.V01_1.4d	Streptococcus Streptococcus pasteurianus	106
+s207.STL.V01_1.4d	Bacteroides Bacteroides sp. 4_1_36	1
+s207.STL.V01_1.4d	Bacteroides Bacteroides sp. D20	1
+s207.STL.V01_1.4d	Bacteroides Bacteroides uniformis	5
+s207.STL.V01_1.4d	Escherichia Escherichia coli	124
+s207.STL.V01_1.4d	Escherichia Escherichia sp. 3_2_53FAA	17
+s208.STL.V01_1.4d	Enterobacter Enterobacter cloacae	15
+s208.STL.V01_1.4d	Enterobacter Enterobacter sp. BIDMC100	8
+s208.STL.V01_1.4d	Enterobacter Enterobacter sp. BIDMC94	2
+s208.STL.V01_1.4d	Enterobacter Enterobacter sp. BWH 37	7
+s208.STL.V01_1.4d	Enterobacter Enterobacter sp. BWH52	23
+s208.STL.V01_1.4d	Enterobacter Enterobacter sp. MGH119	1
+s208.STL.V01_1.4d	Enterobacter Enterobacter sp. MGH128	46
+s208.STL.V01_1.4d	Enterobacter Enterobacter sp. MGH 38	4
+s208.STL.V01_1.4d	Enterobacter Enterobacter sp. MGH 7	26
+s208.STL.V01_1.4d	Enterobacter Enterobacter sp. ST121:950178628	8
+s210.STL.V01_1.4d	Bacteroides Bacteroides dorei	5
+s210.STL.V01_1.4d	Bacteroides Bacteroides sp. 3_1_40A	1
+s211.STL.V01_1.4d	Escherichia Escherichia coli	139
+s222.STL.V01_1.4d	Enterococcus Enterococcus faecalis	142
+s222.STL.V01_1.4d	Streptococcus Streptococcus agalactiae	6
+s222.STL.V01_1.4d	Streptococcus Streptococcus equinus	22
+s222.STL.V01_1.4d	Streptococcus Streptococcus pasteurianus	113
+s237.STL.V01_1.4d	Alistipes Alistipes finegoldii	1
+s237.STL.V01_1.4d	Bacteroides Bacteroides caccae	121
+s237.STL.V01_1.4d	Bacteroides Bacteroides massiliensis	108
+s237.STL.V01_1.4d	Bacteroides Bacteroides oleiciplenus	1
+s237.STL.V01_1.4d	Bacteroides Bacteroides ovatus	3
+s237.STL.V01_1.4d	Bacteroides Bacteroides sp. 1_1_30	2
+s237.STL.V01_1.4d	Bacteroides Bacteroides sp. 2_2_4	1
+s237.STL.V01_1.4d	Bacteroides Bacteroides sp. 3_1_13	6
+s237.STL.V01_1.4d	Bacteroides Bacteroides sp. 3_1_19	1
+s237.STL.V01_1.4d	Bacteroides Bacteroides sp. 3_1_40A	42
+s237.STL.V01_1.4d	Bacteroides Bacteroides sp. 4_3_47FAA	6
+s237.STL.V01_1.4d	Bacteroides Bacteroides sp. D22	2
+s237.STL.V01_1.4d	Bacteroides Bacteroides sp. HMSC073E02	1
+s237.STL.V01_1.4d	Bacteroides Bacteroides vulgatus	95
+s237.STL.V01_1.4d	Bacteroides Bacteroides xylanisolvens	14
+s237.STL.V01_1.4d	Barnesiella Barnesiella intestinihominis	26
+s237.STL.V01_1.4d	Bifidobacterium Bifidobacterium breve	139
+s237.STL.V01_1.4d	Bilophila Bilophila sp. 4_1_30	4
+s237.STL.V01_1.4d	Bilophila Bilophila wadsworthia	133
+s237.STL.V01_1.4d	Enterobacter Enterobacter asburiae	2
+s237.STL.V01_1.4d	Enterobacter Enterobacter cloacae	12
+s237.STL.V01_1.4d	Enterobacter Enterobacter cloacae complex 'Hoffmann cluster III'	65
+s237.STL.V01_1.4d	Enterobacter Enterobacter cloacae complex sp. GN04363	2
+s237.STL.V01_1.4d	Enterobacter Enterobacter hormaechei	3
+s237.STL.V01_1.4d	Enterococcus Enterococcus faecalis	135
+s237.STL.V01_1.4d	Enterococcus Enterococcus sp. 1140_ESPC	3
+s237.STL.V01_1.4d	Klebsiella Klebsiella michiganensis	2
+s237.STL.V01_1.4d	Klebsiella Klebsiella oxytoca	1
+s237.STL.V01_1.4d	Klebsiella Klebsiella sp. AS10	2
+s237.STL.V01_1.4d	Klebsiella Klebsiella sp. OBRC7	5
+s237.STL.V01_1.4d	Lactobacillus Lactobacillus vaginalis	9
+s237.STL.V01_1.4d	Parabacteroides Parabacteroides distasonis	27
+s237.STL.V01_1.4d	Parabacteroides Parabacteroides merdae	145
+s237.STL.V01_1.4d	Parabacteroides Parabacteroides sp. 2_1_7	11
+s237.STL.V01_1.4d	Parabacteroides Parabacteroides sp. D13	2
+s237.STL.V01_1.4d	Parabacteroides Parabacteroides sp. D25	103
+s237.STL.V01_1.4d	Parabacteroides Parabacteroides sp. SN4	1
+s237.STL.V01_1.4d	Pedobacter Pedobacter himalayensis	1
+s237.STL.V01_1.4d	Proteus Proteus sp. HMSC10D02	8
+s237.STL.V01_1.4d	Staphylococcus Staphylococcus epidermidis	14
+s237.STL.V01_1.4d	Streptococcus Streptococcus parasanguinis	16
+s237.STL.V01_1.4d	Streptococcus Streptococcus pneumoniae	1
+s237.STL.V01_1.4d	Streptococcus Streptococcus salivarius	12
+s237.STL.V01_1.4d	Streptococcus Streptococcus sp. 1004_SSPC	27
+s237.STL.V01_1.4d	Streptococcus Streptococcus sp. ACS2	4
+s237.STL.V01_1.4d	Streptococcus Streptococcus sp. CCH5-D3	1
+s237.STL.V01_1.4d	Streptococcus Streptococcus sp. CCH8-H5	1
+s237.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC057G03	3
+s237.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC061E03	15
+s237.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC064D12	2
+s237.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC065C01	3
+s237.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC065E03	3
+s237.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC065H07	2
+s237.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC072C09	2
+s237.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC072D03	1
+s237.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC072G04	2
+s237.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC073D05	5
+s237.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC074F05	5
+s237.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC076C09	2
+s237.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC078H03	5
+s237.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC078H12	3
+s237.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC10E12	1
+s237.STL.V01_1.4d	Streptococcus Streptococcus sp. SR4	1
+s237.STL.V01_1.4d	Streptococcus Streptococcus vestibularis	113
+s241.STL.V01_1.4d	Staphylococcus Staphylococcus epidermidis	1
+s241.STL.V01_1.4d	Streptococcus Streptococcus agalactiae	139
+s248.STL.V01_1.4d	Bacteroides Bacteroides vulgatus	1
+s248.STL.V01_1.4d	Enterobacter Enterobacter cloacae	2
+s248.STL.V01_1.4d	Enterobacter Enterobacter hormaechei	3
+s248.STL.V01_1.4d	Enterobacter Enterobacter kobei	3
+s248.STL.V01_1.4d	Klebsiella Klebsiella sp. MS 92-3	1
+s250.STL.V01_1.4d	Bacteroides Bacteroides vulgatus	3
+s250.STL.V01_1.4d	Escherichia Escherichia coli	2
+s253.STL.V01_1.4d	Citrobacter Citrobacter koseri	1
+s256.STL.V01_1.4d	Algoriphagus Algoriphagus machipongonensis	2
+s256.STL.V01_1.4d	Bartonella Bartonella vinsonii	2
+s256.STL.V01_1.4d	Burkholderia Burkholderia sp. LK4	2
+s256.STL.V01_1.4d	Clostridium Clostridium sp. 7_2_43FAA	2
+s256.STL.V01_1.4d	Colwellia Colwellia sp. PAMC 20917	1
+s256.STL.V01_1.4d	Enterococcus Enterococcus faecalis	143
+s256.STL.V01_1.4d	Ignavibacterium Ignavibacterium album	1
+s256.STL.V01_1.4d	Lactobacillus Lactobacillus taiwanensis	2
+s256.STL.V01_1.4d	Pectobacterium Pectobacterium carotovorum	2
+s256.STL.V01_1.4d	Spiroplasma Spiroplasma turonicum	1
+s256.STL.V01_1.4d	Streptococcus Streptococcus sp. I-P16	2
+s257.STL.V01_1.4d	Staphylococcus Staphylococcus epidermidis	31
+s272.STL.V01_1.4d	Bacteroides Bacteroides dorei	109
+s272.STL.V01_1.4d	Bacteroides Bacteroides sp. 3_1_33FAA	22
+s272.STL.V01_1.4d	Bacteroides Bacteroides sp. 4_1_36	13
+s272.STL.V01_1.4d	Bacteroides Bacteroides sp. 9_1_42FAA	9
+s272.STL.V01_1.4d	Bacteroides Bacteroides sp. D20	20
+s272.STL.V01_1.4d	Bacteroides Bacteroides uniformis	89
+s272.STL.V01_1.4d	Bifidobacterium Bifidobacterium longum	121
+s272.STL.V01_1.4d	Bifidobacterium Bifidobacterium sp. 12_1_47BFAA	16
+s272.STL.V01_1.4d	Catenibacterium Catenibacterium mitsuokai	4
+s272.STL.V01_1.4d	Escherichia Escherichia coli	142
+s272.STL.V01_1.4d	Parabacteroides Parabacteroides distasonis	3
+s272.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC072G04	1
+s272.STL.V01_1.4d	Veillonella Veillonella atypica	77
+s272.STL.V01_1.4d	Veillonella Veillonella sp. ACP1	17
+s272.STL.V01_1.4d	Veillonella Veillonella sp. HPA0037	10
+s272.STL.V01_1.4d	Veillonella Veillonella sp. ICM51a	22
+s275.STL.V01_1.4d	Enterobacter Enterobacter cloacae complex 'Hoffmann cluster IV'	75
+s275.STL.V01_1.4d	Enterobacter Enterobacter cloacae complex sp. 35618	10
+s275.STL.V01_1.4d	Enterobacter Enterobacter cloacae complex sp. 35651	1
+s275.STL.V01_1.4d	Enterobacter Enterobacter cloacae complex sp. 43444	6
+s275.STL.V01_1.4d	Enterobacter Enterobacter cloacae complex sp. GN02440	4
+s275.STL.V01_1.4d	Enterobacter Enterobacter cloacae complex sp. SMART_269	15
+s275.STL.V01_1.4d	Enterobacter Enterobacter cloacae complex sp. SMART_454	1
+s275.STL.V01_1.4d	Enterobacter Enterobacter sp. HMSC16D10	1
+s275.STL.V01_1.4d	Escherichia Escherichia coli	16
+s275.STL.V01_1.4d	Lelliottia Lelliottia nimipressuralis	26
+s277.STL.V01_1.4d	Aggregatibacter Aggregatibacter sp. oral taxon 458	1
+s277.STL.V01_1.4d	Algoriphagus Algoriphagus machipongonensis	2
+s277.STL.V01_1.4d	Bacteria Proteobacteria Betaproteobacteria Nitrosomonadales beta proteobacterium KB13	1
+s277.STL.V01_1.4d	Bartonella Bartonella vinsonii	2
+s277.STL.V01_1.4d	Burkholderia Burkholderia sp. LK4	2
+s277.STL.V01_1.4d	Candidatus Phytoplasma Candidatus Phytoplasma aurantifolia	1
+s277.STL.V01_1.4d	Catenovulum Catenovulum agarivorans	1
+s277.STL.V01_1.4d	Cetobacterium Cetobacterium ceti	2
+s277.STL.V01_1.4d	Clostridium Clostridium saccharoperbutylacetonicum	1
+s277.STL.V01_1.4d	Clostridium Clostridium sp. 7_2_43FAA	3
+s277.STL.V01_1.4d	Clostridium Clostridium tyrobutyricum	2
+s277.STL.V01_1.4d	Enterococcus Enterococcus canintestini	1
+s277.STL.V01_1.4d	Enterococcus Enterococcus pallens	1
+s277.STL.V01_1.4d	Flavobacterium Flavobacterium frigoris	1
+s277.STL.V01_1.4d	Francisella Francisella tularensis	2
+s277.STL.V01_1.4d	Haemophilus Haemophilus influenzae	1
+s277.STL.V01_1.4d	Lactobacillus Lactobacillus taiwanensis	2
+s277.STL.V01_1.4d	Leptospira interrogans	2
+s277.STL.V01_1.4d	Paenibacillus Paenibacillus senegalimassiliensis	1
+s277.STL.V01_1.4d	Pectobacterium Pectobacterium carotovorum	10
+s277.STL.V01_1.4d	Pedobacter Pedobacter agri	1
+s277.STL.V01_1.4d	Pedobacter Pedobacter sp. Hv1	6
+s277.STL.V01_1.4d	Spiroplasma Spiroplasma turonicum	1
+s277.STL.V01_1.4d	Thermodesulfovibrio Thermodesulfovibrio sp. N1	2
+s277.STL.V01_1.4d	Virgibacillus Virgibacillus alimentarius	1
+s277.STL.V01_1.4d	Virgibacillus Virgibacillus massiliensis	2
+s283.STL.V01_1.4d	Bacteroides Bacteroides vulgatus	2
+s283.STL.V01_1.4d	Escherichia Escherichia coli	1
+s285.STL.V01_1.4d	Enterococcus Enterococcus faecalis	55
+s285.STL.V01_1.4d	Escherichia Escherichia coli	131
+s285.STL.V01_1.4d	Escherichia Escherichia sp. 3_2_53FAA	10
+s288.STL.V01_1.4d	Streptococcus Streptococcus thermophilus	5
+s298.STL.V01_1.4d	Enterococcus Enterococcus faecalis	143
+s298.STL.V01_1.4d	Staphylococcus Staphylococcus epidermidis	122
+s298.STL.V01_1.4d	Staphylococcus Staphylococcus sp. HMSC062B11	1
+s298.STL.V01_1.4d	Staphylococcus Staphylococcus sp. HMSC072H01	13
+s309.STL.V01_1.4d	Citrobacter Citrobacter koseri	20
+s309.STL.V01_1.4d	Klebsiella Klebsiella pneumoniae	117
+s309.STL.V01_1.4d	Klebsiella Klebsiella sp. 4_1_44FAA	5
+s309.STL.V01_1.4d	Klebsiella Klebsiella sp. MS 92-3	2
+s309.STL.V01_1.4d	Salmonella Salmonella sp. HMSC13B08	129
+s319.STL.V01_1.4d	Enterococcus Enterococcus faecalis	142
+s319.STL.V01_1.4d	Lactobacillus Lactobacillus crispatus	7
+s322.STL.V01_1.4d	Cronobacter Cronobacter dublinensis	2
+s322.STL.V01_1.4d	Cronobacter Cronobacter turicensis	15
+s322.STL.V01_1.4d	Escherichia Escherichia coli	89
+s322.STL.V01_1.4d	Escherichia Escherichia fergusonii	2
+s322.STL.V01_1.4d	Shigella Shigella dysenteriae	2
+s322.STL.V01_1.4d	Shigella Shigella flexneri	3
+s322.STL.V01_1.4d	Shigella Shigella sp. SF-2015	1
+s325.STL.V01_1.4d	Bacteroides Bacteroides sp. 3_1_40A	4
+s325.STL.V01_1.4d	Bacteroides Bacteroides sp. 4_3_47FAA	15
+s325.STL.V01_1.4d	Bacteroides Bacteroides vulgatus	121
+s325.STL.V01_1.4d	Citrobacter Citrobacter koseri	54
+s325.STL.V01_1.4d	Proteus Proteus mirabilis	133
+s325.STL.V01_1.4d	Proteus Proteus sp. HMSC14B05	6
+s325.STL.V01_1.4d	Salmonella Salmonella sp. HMSC13B08	87
+s325.STL.V01_1.4d	Streptococcus Streptococcus equinus	1
+s325.STL.V01_1.4d	Streptococcus Streptococcus gallolyticus	1
+s325.STL.V01_1.4d	Veillonella Veillonella seminalis	138
+s327.STL.V01_1.4d	Haemophilus Haemophilus sputorum	36
+s327.STL.V01_1.4d	Streptococcus Streptococcus parasanguinis	2
+s327.STL.V01_1.4d	Streptococcus Streptococcus sp. HMSC077D04	2

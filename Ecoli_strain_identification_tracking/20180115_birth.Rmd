@@ -1,0 +1,258 @@
+---
+title: "Strain identification for birth samples"
+author: "Chunyu Zhao"
+date: "01/16/2018"
+output: pdf_document
+---
+
+```{r setup, echo=FALSE}
+knitr::opts_chunk$set(
+  tidy=FALSE,
+  cache=FALSE,
+  echo=FALSE,
+  message = FALSE,
+  warning = FALSE,
+  dpi=100,
+  fig.width = 8,
+  fig.height = 8,
+  fig.align = "center",
+  cache.lazy = FALSE,
+  dev=c("png", "pdf"),
+  warning=FALSE)
+```
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(qiimer)
+library(readr)
+library(tidyr)
+library(magrittr)
+library(reshape2)
+library(pheatmap)
+library(pander)
+library(broom)
+
+library(subfunc)
+library(grid)
+library(stringr)
+library(vegan)
+library(ape)
+library(forcats)
+library(lubridate)
+library(magrittr)
+
+library(colorRamps)
+library(RColorBrewer)
+
+library(ggbeeswarm)
+
+library(nlme)
+
+source("helper.R")
+
+require(Biostrings)
+library(Rsamtools)
+library(stringr)
+
+```
+
+# Introduction
+
+For all the meconium samples, we mapped the corresponding 1 month samples back to the birth contigs. 
+
+So, the contigs info (taxonomic assignment and 139 SCGs alignment) are the one for the meconium samples.
+
+What's new here is: read in the table `sample_conversion_1month.txt`, and update the count/substitution rate.
+
+## Read in the meconium contigs information
+```{r}
+single_copy_genes_tables <- read.table("sunbeam_output_20171208/single_copy_genes_tables.txt", sep="\t", header=T, stringsAsFactors = F)
+single_copy_genes_tables %<>% select(-one_of(c("source","bin_id")))
+```
+
+## Read in sample conversion 
+```{r}
+sample_mapping <- read.table("sunbeam_output_1mo/sample_conversion_1month_20180110.txt", sep="\t", stringsAsFactors = F) %>%
+  dplyr::rename(SampleID = V1, SampleID1mo = V2)
+```
+
+```{r}
+single_copy_genes_tables %<>% filter(SampleID %in% sample_mapping$SampleID)
+
+library(qiimer)
+
+single_copy_genes_tables %<>% filter(! is.na(subject_id))
+
+adf <- single_copy_genes_tables %>% select(superkingdom:species)
+
+#- cuz some of the genus assignments are missing
+a <- simplify_assignments(adf, rank1="phylum", rank2="species")
+single_copy_genes_tables$Genus <- a
+```
+
+# Read in base entropy and substitution rate
+
+1. There are indeed E coli contigs/SCG from the birth, not have any reads mappped from the 1month reads.
+
+2. There are also cases (e.g. s272.STL.V02_1mo) that reads mapped to the same contigs, but not the same region(aka gene)
+
+- **mismatch rate**
+
+```{r}
+library(binom)
+
+get_lower_upper <- function(x,n){
+  confi_inter <- binom.bayes(n-x, n)
+  data.frame(lower = confi_inter["lower"], uppder = confi_inter["upper"])
+}
+
+```
+
+- read in *_{meconium}_base.counts.ent
+- read in *_{one_month"_base.counts.ent
+- write *_mismatch_rate.pdf
+- write *_histogram_mismatch_rates.pdf
+
+```{r substitution rate start from here 20180115, fig.width=20, eval=FALSE}
+per_gene_entropy <- function(sampleid, single_copy_genes_tables, sample_mapping){
+  ## all the SCGs alignment for birth meconium sample
+  temp <- single_copy_genes_tables %>% filter(SampleID %in% sampleid)
+  ## corresponding 1-month SampleID
+  sampleid_1mon <- sampleid
+  
+  ref_file <- file.path(paste("sunbeam_output_20171208/summary/", sampleid, "_base.counts.ent", sep=""))
+  input_file <- file.path(paste("sunbeam_output_20171208/summary/", sampleid_1mon, "_base.counts.ent", sep=""))
+  
+  if (file.exists(input_file)){
+    dat <- read.table(input_file,header=T,sep="\t",na.strings="NA",dec=".",strip.white=T,stringsAsFactors = F)
+    
+    
+    if (nrow(dat) > 1){
+      observed_base <- read.table(ref_file,header=T,sep="\t",na.strings="NA",dec=".",strip.white=T,stringsAsFactors = F) %>%
+        select(ref, pos, A:T) %>%
+        gather(obs_base, obs_reads, A:T) %>% 
+        group_by(ref, pos) %>% 
+        arrange(desc(obs_reads)) %>% 
+        filter(row_number() == 1) %>% 
+        ungroup()
+      
+      ## check for the dimensions for dat and observed_base
+      
+      #1 first we only kept regions of contigs covered by the earlier samples
+      dat <- merge(dat, observed_base)
+      
+      #2 calculate the match rate
+      dat %<>% gather(obs_1mon_base, obs_1mon_reads, A:T) %>%
+        filter(obs_1mon_base == obs_base) %>%
+        mutate(mismatchRate = 1 - obs_1mon_reads/n)
+      
+      
+      #- substution rate, with error bar
+      pdf_name <- paste(c(sampleid_1mon, "_mismatch_rate.pdf"), collapse="")
+      pdf(pdf_name)
+      #- we need to consider multiple-copy genes: so we can't use gene names
+      hist_sub_rates <- list()
+      mismatch_alignment_1month <- list()
+      
+      ## LOOP over each row of the original `temp` dataframe
+      for (x in 1:dim(temp)[1]){
+        #- for the 1month sample, it is possible that the previous contig/gene didn't show up 
+        one_gene_from_birth_alignment <- temp[x,] %>%
+            select(SampleID, gene_name, start, stop, length, query_id, len, Genus)
+        
+        isExist <- dat %>% filter(ref %in% one_gene_from_birth_alignment$query_id) %>% nrow() > 1
+        
+        ## case 1
+        if (isExist){
+          ## hmm alignment region: start - stop
+          istart <- as.numeric(one_gene_from_birth_alignment$start) + 1 
+          istop <-  as.numeric(one_gene_from_birth_alignment$stop)
+          toplot <- dat %>%
+            filter(ref %in% one_gene_from_birth_alignment$query_id) %>% 
+            filter(pos >=  istart & pos <= istop ) %>%
+            mutate(Genus = one_gene_from_birth_alignment$Genus) %>%
+            mutate(gene_name = one_gene_from_birth_alignment$gene_name)
+          
+          ## 20180112: sample-gene-species-(1)mismatch==1 (2)
+          ## ABOUT GAPS: if it is important genes, then should not have gaps.
+          
+          mismatch_alignment_1month[[x]] <- toplot %>% 
+            group_by(ref) %>%
+            summarise(mismacthSum = sum(mismatchRate == 1), alignedPos = n()) %>%
+            ungroup() %>%
+            merge(one_gene_from_birth_alignment) %>%
+            select(SampleID, everything())
+          
+      
+          ## case 2
+          if (nrow(toplot) > 1){
+            confi <- do.call(rbind, lapply(1:nrow(toplot), function(x) get_lower_upper(toplot$obs_1mon_reads[x], toplot$n[x])))
+            toplot <- cbind(toplot, confi)
+            
+            fig <- toplot %>% 
+              ggplot(aes(x = pos, y = mismatchRate)) +
+              geom_point() +
+              geom_linerange(aes(ymin = lower, ymax = upper)) + 
+              theme_bw() + 
+              ylim(0, 1) +
+              ggtitle(paste(c(sampleid_1mon, ":", one_gene_from_birth_alignment$gene_name, ":", one_gene_from_birth_alignment$Genus), collapse="")) +
+              theme(plot.title = element_text(hjust = 0.5)) +
+              theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) + 
+              scale_color_brewer(palette = "Set1")
+            
+            hist_sub_rates[[x]] <- toplot[,c("ref", "pos","mismatchRate","lower","upper","Genus","gene_name")]
+            
+            print(fig)
+            rm(toplot)
+          }
+        }
+      }
+      dev.off()
+      
+      ## mismatch summary for one sample
+      mismatch_alignment_1month <- do.call(rbind,mismatch_alignment_1month)
+      
+      mis_file = paste(sampleid_1mon, "_mismatch_aln.rda", collapse = "")
+      save(mismatch_alignment_1month, file = mis_file)
+      
+      
+      hist_sub_rates <- do.call(rbind, hist_sub_rates)
+      hist_file = paste(sampleid_1mon, "_hist_mismatch_rates.rda", collapse = "")
+      save(hist_sub_rates, file = hist_file)
+      
+      ngenus <- length(unique(hist_sub_rates$Genus))
+      hist <- hist_sub_rates %>%
+        ggplot(aes(x = mismatchRate)) +
+        geom_histogram() +
+        scale_y_log10() +
+        facet_wrap(~Genus, nrow=ngenus, scales="free_y") +
+        labs(x ="Substitution rate", y= "Count") +
+        theme_bw() + 
+        ggtitle("Histogram of mismatch rate over all genes") +
+        theme(plot.title = element_text(hjust = 0.5)) +
+        theme(strip.text.y = element_text(angle = 0))
+      
+      pdf_name <- paste(c(sampleid_1mon, "_histogram_mismatch_rates.pdf"), collapse="")
+      if (ngenus <= 4){
+        pdf(pdf_name)
+      } else if (ngenus <= 8) {
+        pdf(pdf_name, height=14)
+      } else {
+        pdf(pdf_name, height=22)
+      }
+        
+      print(hist)
+      dev.off()
+    }
+  }
+}
+
+
+#- todo: run this for all the samples
+samples_all <- unique(single_copy_genes_tables$SampleID)
+for ( i in 1:length(samples_all)){
+  print(samples_all[i])
+  per_gene_entropy(samples_all[i], single_copy_genes_tables, sample_mapping)
+}
+```
